@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import { connectDatabase, createDatabaseTables } from "./database";
-import { createTodo, getTodoById, getTodos } from "./logic";
+import { createTodo, deleteTodo, getTodoById, getTodos } from "./logic";
 
 const app = express();
 
@@ -12,6 +12,8 @@ app.get("/", getTodos);
 app.get("/:id", getTodoById);
 
 app.post("/", createTodo);
+
+app.delete("/:id", deleteTodo);
 
 const PORT = process.env.PORT;
 
