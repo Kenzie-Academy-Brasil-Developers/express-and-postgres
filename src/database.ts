@@ -16,3 +16,18 @@ export const connectDatabase = async () => {
         console.log(error);
     }
 }
+
+export const createDatabaseTables = async () => {
+    try {
+        const query = `CREATE TABLE IF NOT EXISTS todos (
+            id SERIAL PRIMARY KEY,
+            title VARCHAR(100),
+            content TEXT
+        );`
+
+        await client.query(query);
+        console.log("Tables created sucessfully");
+    } catch (error) {
+        console.log(error);
+    }
+}

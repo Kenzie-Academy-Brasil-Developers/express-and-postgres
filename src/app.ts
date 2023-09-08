@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import { connectDatabase } from "./database";
+import { connectDatabase, createDatabaseTables } from "./database";
 
 const app = express();
 
@@ -10,5 +10,6 @@ const PORT = process.env.PORT;
 
 app.listen(PORT, async () => {   
    await connectDatabase();
+   await createDatabaseTables();
    console.log(`Server is running on port ${PORT}`);
 });
