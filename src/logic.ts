@@ -8,9 +8,9 @@ export const getTodoById = async (req: Request, res: Response) => {
    const queryString = `SELECT * FROM todos WHERE id = $1;`;
 
    const queryConfig: QueryConfig = {
-    text: queryString,
-    values: [id],
-   }
+      text: queryString,
+      values: [id],
+   };
 
    const data = await client.query(queryConfig);
 
@@ -57,4 +57,19 @@ export const deleteTodo = async (req: Request, res: Response) => {
    await client.query(queryConfig);
 
    return res.status(200).json({ message: "Todo was sucessfully deleted." });
+};
+
+export const editTodo = async (req: Request, res: Response) => {
+   const { id } = req.params;
+
+   const query = format(
+      `UPDATE todos SET (%I) = ROW(%L) WHERE id = (%s) RETURNING *;`,
+      Object.keys(req.body),
+      Object.values(req.body),
+      id
+   );
+
+   const data = await client.query(query);
+
+   return res.status(200).json({ message: "Todo was sucessfully edited.", todo: data.rows[0]});
 };
