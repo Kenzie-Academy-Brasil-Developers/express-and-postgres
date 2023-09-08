@@ -1,11 +1,15 @@
 import "dotenv/config";
 import express from "express";
 import { connectDatabase, createDatabaseTables } from "./database";
-import { createTodo } from "./logic";
+import { createTodo, getTodoById, getTodos } from "./logic";
 
 const app = express();
 
 app.use(express.json());
+
+app.get("/", getTodos);
+
+app.get("/:id", getTodoById);
 
 app.post("/", createTodo);
 
