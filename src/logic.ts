@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
-import { client } from "./database";
+import { client } from "./database/database";
 import { QueryConfig } from "pg";
 import format from "pg-format";
+
+// controllers
+// services
 
 export const getTodoById = async (req: Request, res: Response) => {
    const { id } = req.params;
