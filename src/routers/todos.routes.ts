@@ -1,17 +1,16 @@
 import { Router } from "express";
-import { getTodos, createTodo, deleteTodo, editTodo } from "../logic";
-import { getTodoByIdController } from "../controllers/todos.controllers";
+import { createTodoController, deleteTodoController, editTodoController, getTodoByIdController, getTodosControler } from "../controllers/todos.controllers";
 
 const router = Router();
 
-router.get("/", getTodos);
+router.get("/", getTodosControler);
 
 router.get("/:id", getTodoByIdController);
 
-router.post("/", createTodo);
+router.post("/", createTodoController);
 
-router.delete("/:id", deleteTodo);
+router.delete("/:id", deleteTodoController);
 
-router.patch("/:id", editTodo);
+router.patch("/:id", editTodoController);
 
 export default router;
