@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { QueryConfig } from "pg";
 import { client } from "../database/database";
+import { AppError } from "../errors/errors";
 
 export const isTodoIdValid = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -14,13 +15,13 @@ export const isTodoIdValid = async (req: Request, res: Response, next: NextFunct
         const foundTodo = await client.query(queryConfig);
         
         if(!foundTodo.rows[0]){
-            throw new Error("Not found any todo with this id");
+            throw new AppError("Not found any todo with this id", 404);
         }
     
         return next(); 
     } catch (error) {
-        if(error instanceof Error){
-            return res.status(404).json({ error: error });
+        if(error instanceof AppError){
+            return res.status(error.statusCode).json({ error: error.message });
         }    
         
         console.log(error);
