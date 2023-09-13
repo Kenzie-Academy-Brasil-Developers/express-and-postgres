@@ -13,7 +13,7 @@ export const isTodoIdValid = async (req: Request, res: Response, next: NextFunct
     const foundTodo = await client.query(queryConfig);
     
     if(!foundTodo.rows[0]){
-        return res.status(404).json({ error: "Not found any todo with this id" })
+        return res.status(404).json({ error: "Not found any todo with this id" });
     }
 
     return next();
