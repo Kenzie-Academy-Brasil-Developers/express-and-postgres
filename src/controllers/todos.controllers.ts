@@ -6,7 +6,6 @@ import {
    getTodoById,
    getTodos,
 } from "../services/todos.services";
-import { AppError } from "../errors/errors";
 
 export const getTodosControler = async (req: Request, res: Response) => {
    const response = await getTodos();
